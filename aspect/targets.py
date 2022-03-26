@@ -10,15 +10,12 @@ from aspect.advices import AdviceType, get_class_advice_methods
 
 def bind(target_bind_cls):
     def decorator(source_bind_cls):
-        # before_target_methods = dict(_before_methods(target_bind_cls))
-        # after_target_methods = dict(_after_methods(target_bind_cls))
         before_target_methods = dict(get_class_advice_methods(target_bind_cls, AdviceType.BEFORE))
         after_target_methods = dict(get_class_advice_methods(target_bind_cls, AdviceType.AFTER))
 
         source_methods = dict(inspect.getmembers(source_bind_cls, predicate=inspect.isfunction))
 
         for method_name in source_methods:
-            # import pdb; pdb.set_trace()
             if (method_name in before_target_methods) or (method_name in after_target_methods):
                 def decorated_method(*args, **kwargs):
                     if method_name in before_target_methods:
