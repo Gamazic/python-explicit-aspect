@@ -1,7 +1,7 @@
 import aspect
 
 
-class LogCar:
+class LogCar(aspect.BaseAspect):
     @aspect.how(aspect.AdviceType.BEFORE)
     def move(self, rotation):
         print('!!!!"before" aspect!!!')
